@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import {useState} from "react";
 
 function App() {
+  const [input, showInput] = useState(false);
+  function inputHandler() {}
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Google Keep</h1>
+
+      {input === false ? (
+        <div className="click" onClick={() => showInput(true)}>
+          add note
+        </div>
+      ) : (
+        <div>
+          {" "}
+          <input
+            onClick={inputHandler}
+            placeholder="add title"
+            className="input-title"
+          ></input>
+          <div>
+            <textarea
+              placeholder="add description"
+              className="input-description"
+            ></textarea>
+          </div>
+          <button onClick={() => showInput(false)}>Close</button>
+        </div>
+      )}
+
+      {/* <div><input></input></div> */}
     </div>
   );
 }
