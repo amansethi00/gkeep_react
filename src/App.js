@@ -2,7 +2,6 @@ import "./App.css";
 import "./App.scss";
 import {useState} from "react";
 import {v4 as uuidv4} from "uuid";
-
 const todo = [
   {
     id: uuidv4(),
@@ -36,7 +35,27 @@ function App() {
     showInput(!input);
     setUserinput("");
   };
-  console.log(userinput);
+  // console.log(userinput);
+  // console.log(todos);
+
+  function Pin({id, setTodo}) {
+    const pinHandler = (id) => {
+      setTodo((prev) => {
+        prev.map((e) => (e.id === id ? {...e, pin: true} : e));
+      });
+      console.log(todos);
+    };
+    return (
+      <div>
+        <button onClick={() => pinHandler(id)}>Pinned</button>
+      </div>
+    );
+  }
+  const pinHandler = (id) => {
+    setTodos((prev) =>
+      prev.map((e) => (e.id === id ? {...e, pin: !e.pin} : e))
+    );
+  };
   console.log(todos);
   return (
     <div className="App">
@@ -71,13 +90,20 @@ function App() {
           )}
           <ul>
             <div className="todo-view">
-              {" "}
               {todos.map((prev) => {
                 return (
                   <li key={prev.id}>
                     <div className="todo">
                       <div className="todo-title">{prev.title}</div>
                       <div className="todo-description">{prev.description}</div>
+                      {/* <Pin id={prev.id} setTodo={setTodos} /> */}
+                      <button onClick={() => pinHandler(prev.id)}>
+                        {prev.pin !== true ? (
+                          <span>Pin</span>
+                        ) : (
+                          <span>Pinned</span>
+                        )}
+                      </button>
                     </div>
                   </li>
                 );
@@ -86,7 +112,7 @@ function App() {
           </ul>
         </div>
       </div>
-
+      <div className="pin"></div>
       {/* <div className="todo">
         <div className="todo-title"> Title</div>
         <div className="todo-description">Description</div>
