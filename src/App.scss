@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+body {
+  font-family: "Montserrat", sans-serif;
+}
+.gkeep {
+  display: flex;
+}
+.sidebar {
+  width: 10rem;
+}
+.keep-container {
+  padding-top: 4rem;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+}
+
+.addNote {
+  margin: auto;
+  width: 25rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+.addNote:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+.input-title {
+  font-size: x-large;
+}
+.input-description {
+  font-size: large;
+  width: 20rem;
+}
+
+.input-div {
+  margin: auto;
+  width: 25rem;
+  border: 1px solid black;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  padding: 1rem;
+  border-radius: 1rem;
+  border-width: 0px;
+  .input-title {
+    border-width: 0px;
+    width: 100%;
+    word-wrap: normal;
+  }
+  .input-title:focus {
+    outline: none;
+  }
+  .input-description {
+    padding-top: 1rem;
+    border-width: 0px;
+    width: 100%;
+    font-family: "Montserrat", sans-serif;
+  }
+  .input-description:focus {
+    outline: none;
+  }
+}
+
+ul {
+  li {
+    list-style: none;
+  }
+}
+.todo-view {
+  display: inline-flex;
+  //display: flex;
+  flex-wrap: wrap;
+
+  .todo {
+    width: 10rem;
+    border: 1px solid #9ca3af;
+
+    text-align: left;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin: 0.3rem;
+    // .todo:hover {
+    //   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    // }
+
+    .todo-title {
+      font-weight: bolder;
+    }
+    .todo-description {
+      padding-top: 0.3rem;
+    }
+  }
+  .todo:hover {
+    // box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  }
+}
