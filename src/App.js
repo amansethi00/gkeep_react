@@ -2,6 +2,7 @@ import "./App.css";
 import "./App.scss";
 import {useState} from "react";
 import {v4 as uuidv4} from "uuid";
+import {ReactComponent as Pin} from "./svg/push-pin.svg";
 const todo = [
   {
     id: uuidv4(),
@@ -17,7 +18,7 @@ function App() {
   const [input, showInput] = useState(false);
   const [userinput, setUserinput] = useState("");
   const [todos, setTodos] = useState(todo);
-
+  const [pinnedTodos, setPinnedTodos] = useState([]);
   const inputTitleHandler = (event) => {
     setUserinput({...userinput, title: event.target.value, id: uuidv4()});
   };
@@ -57,11 +58,15 @@ function App() {
   //   );
   // }
   const pinHandler = (id) => {
-    setTodos((prev) =>
-      prev.map((e) => (e.id === id ? {...e, pin: !e.pin} : e))
-    );
+    setPinnedTodos([...todos.filter((e) => e.id === id), ...pinnedTodos]);
+    setTodos((prev) => prev.filter((e) => e.id !== id));
+  };
+  const unpinhandler = (id) => {
+    setTodos([...pinnedTodos.filter((e) => e.id === id), ...todos]);
+    setPinnedTodos((prev) => prev.filter((e) => e.id !== id));
   };
   console.log(todos);
+  console.log(pinnedTodos);
   return (
     <div className="App">
       <div className="gkeep">
@@ -94,55 +99,56 @@ function App() {
           <ul>
             <div className="todo-view">
               {/* Pinned Notes */}
-              <h2>Pinned Notes</h2>
-              {todos
-                .filter((x) => x.pin === true)
-                .map((prev) => {
+              {pinnedTodos.length > 0 ? <h2>Pinned Notes</h2> : <></>}
+              <div className="todo-pinned">
+                {pinnedTodos.map((prev) => {
                   return (
                     <li key={prev.id}>
                       <div className="todo">
-                        <div className="todo-title">{prev.title}</div>
+                        <div className="todo-head">
+                          <div className="todo-title">{prev.title}</div>
+                          <span onClick={() => unpinhandler(prev.id)}>
+                            <Pin className="pinned-pin" />
+                          </span>
+                        </div>
+
                         <div className="todo-description">
                           {prev.description}
                         </div>
 
                         {/* <Pin id={prev.id} setTodo={setTodos} /> */}
-                        <button onClick={() => pinHandler(prev.id)}>
-                          {prev.pin !== true ? (
-                            <span>Pin</span>
-                          ) : (
-                            <span>Pinned</span>
-                          )}
-                        </button>
                       </div>
                     </li>
                   );
                 })}
+              </div>
               <h2>Others</h2>
-              {/* Other notes */}
-              {todos
-                .filter((x) => x.pin === false)
-                .map((prev) => {
-                  return (
-                    <li key={prev.id}>
-                      <div className="todo">
-                        <div className="todo-title">{prev.title}</div>
-                        <div className="todo-description">
-                          {prev.description}
+              <div className="todo-others">
+                {/* Other notes */}
+                {todos
+                  .filter((x) => x.pin === false)
+                  .map((prev) => {
+                    return (
+                      <li key={prev.id}>
+                        <div className="todo">
+                          <span
+                            onClick={() => pinHandler(prev.id)}
+                            className="todo-pin"
+                          >
+                            <Pin className="svg-pin" />
+                          </span>
+                          <div className="todo-title">{prev.title}</div>
+                          <div className="todo-description">
+                            {prev.description}
+                          </div>
+                          {/* <Pin id={prev.id} setTodo={setTodos} /> */}
+
+                          {/* <Pin id={prev.id} setTodo={setTodos} /> */}
                         </div>
-                        {/* <Pin id={prev.id} setTodo={setTodos} /> */}
-                        <button onClick={() => pinHandler(prev.id)}>
-                          {prev.pin !== true ? (
-                            <span>Pin</span>
-                          ) : (
-                            <span>Pinned</span>
-                          )}
-                        </button>
-                        {/* <Pin id={prev.id} setTodo={setTodos} /> */}
-                      </div>
-                    </li>
-                  );
-                })}
+                      </li>
+                    );
+                  })}
+              </div>
             </div>
           </ul>
         </div>

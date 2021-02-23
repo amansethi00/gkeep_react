@@ -66,10 +66,18 @@ ul {
   }
 }
 .todo-view {
-  display: inline-flex;
+  display: flex;
   //display: flex;
   flex-wrap: wrap;
-
+  flex-direction: column;
+  .todo-pinned {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .todo-others {
+    display: flex;
+    flex-wrap: wrap;
+  }
   .todo {
     width: 10rem;
     border: 1px solid #9ca3af;
@@ -78,19 +86,52 @@ ul {
     padding: 1rem;
     border-radius: 1rem;
     margin: 0.3rem;
+    position: relative;
+
     // .todo:hover {
     //   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
     // }
 
     .todo-title {
       font-weight: bolder;
+      position: relative;
+      left: 0px;
     }
     .todo-description {
       padding-top: 0.3rem;
+    }
+    .pinned-pin {
+      position: absolute;
+      top: 5px;
+      left: 10rem;
+      right: 0rem;
+      cursor: pointer;
+      height: 1.5rem;
+      width: 1.5rem;
+      color: grey;
+      display: inline;
+    }
+
+    .todo-pin {
+      position: absolute;
+      top: 5px;
+      left: 10rem;
+      right: 0rem;
+      cursor: pointer;
+      height: 1.5rem;
+      width: 1.5rem;
+      color: grey;
+      display: inline;
     }
   }
   .todo:hover {
     // box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
   }
+}
+.svg-pin {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: white;
+  background: white;
 }
