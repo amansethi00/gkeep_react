@@ -45,6 +45,7 @@ body {
     border-width: 0px;
     width: 100%;
     word-wrap: normal;
+    background: transparent;
   }
   .input-title:focus {
     outline: none;
@@ -54,9 +55,32 @@ body {
     border-width: 0px;
     width: 100%;
     font-family: "Montserrat", sans-serif;
+    background: transparent;
   }
   .input-description:focus {
     outline: none;
+  }
+  .color {
+    height: 1rem;
+    width: 1rem;
+    border-radius: 1rem;
+    position: relative;
+    top: 0.5rem;
+    margin-left: 0.5rem;
+    display: inline-block;
+  }
+  .color-2 {
+    background-color: #a3e635;
+  }
+  .color-1 {
+    background-color: #fbbf24;
+  }
+
+  .color-3 {
+    background-color: #60a5fa;
+  }
+  .color-4 {
+    background-color: #f472b6;
   }
 }
 
@@ -70,6 +94,7 @@ ul {
   //display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+
   .todo-pinned {
     display: flex;
     flex-wrap: wrap;
@@ -84,6 +109,7 @@ ul {
 
     text-align: left;
     padding: 1rem;
+    padding-bottom: 2rem;
     border-radius: 1rem;
     margin: 0.3rem;
     position: relative;
@@ -96,6 +122,8 @@ ul {
       font-weight: bolder;
       position: relative;
       left: 0px;
+      padding-right: 1rem;
+      word-wrap: break-word;
     }
     .todo-description {
       padding-top: 0.3rem;
@@ -132,6 +160,5 @@ ul {
 .svg-pin {
   height: 1.5rem;
   width: 1.5rem;
-  color: white;
-  background: white;
+  padding-left: 2px;
 }

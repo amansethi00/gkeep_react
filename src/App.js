@@ -3,6 +3,7 @@ import "./App.scss";
 import {useState} from "react";
 import {v4 as uuidv4} from "uuid";
 import {ReactComponent as Pin} from "./svg/push-pin.svg";
+import {Footer} from "./components/Footer";
 const todo = [
   {
     id: uuidv4(),
@@ -41,22 +42,7 @@ function App() {
     showInput(!input);
     setUserinput("");
   };
-  // console.log(userinput);
-  // console.log(todos);
 
-  // function Pin({id, setTodo}) {
-  //   const pinHandler = (id) => {
-  //     setTodo((prev) => {
-  //       prev.map((e) => (e.id === id ? {...e, pin: true} : e));
-  //     });
-  //     console.log(todos);
-  //   };
-  //   return (
-  //     <div>
-  //       <button onClick={() => pinHandler(id)}>Pinned</button>
-  //     </div>
-  //   );
-  // }
   const pinHandler = (id) => {
     setPinnedTodos([...todos.filter((e) => e.id === id), ...pinnedTodos]);
     setTodos((prev) => prev.filter((e) => e.id !== id));
@@ -64,6 +50,9 @@ function App() {
   const unpinhandler = (id) => {
     setTodos([...pinnedTodos.filter((e) => e.id === id), ...todos]);
     setPinnedTodos((prev) => prev.filter((e) => e.id !== id));
+  };
+  const changeColor = (color) => {
+    setUserinput({...userinput, color: color});
   };
   console.log(todos);
   console.log(pinnedTodos);
@@ -79,7 +68,10 @@ function App() {
               add note
             </div>
           ) : (
-            <div className="input-div">
+            <div
+              className="input-div"
+              style={{backgroundColor: userinput.color}}
+            >
               <input
                 onChange={inputTitleHandler}
                 placeholder="Title"
@@ -94,6 +86,23 @@ function App() {
               </div>
               <button onClick={addButtonHandler}>Add</button>
               <button onClick={closeButtonHandler}>Close</button>
+
+              <span
+                onClick={() => changeColor("#fbbf24")}
+                className="color color-1 "
+              ></span>
+              <span
+                onClick={() => changeColor("#a3e635")}
+                className="color color-2"
+              ></span>
+              <span
+                onClick={() => changeColor("#60a5fa")}
+                className="color color-3"
+              ></span>
+              <span
+                onClick={() => changeColor("#f472b6")}
+                className="color color-4"
+              ></span>
             </div>
           )}
           <ul>
@@ -104,7 +113,10 @@ function App() {
                 {pinnedTodos.map((prev) => {
                   return (
                     <li key={prev.id}>
-                      <div className="todo">
+                      <div
+                        className="todo"
+                        style={{backgroundColor: prev.color}}
+                      >
                         <div className="todo-head">
                           <div className="todo-title">{prev.title}</div>
                           <span onClick={() => unpinhandler(prev.id)}>
@@ -115,8 +127,7 @@ function App() {
                         <div className="todo-description">
                           {prev.description}
                         </div>
-
-                        {/* <Pin id={prev.id} setTodo={setTodos} /> */}
+                        <Footer setTodos={setPinnedTodos} id={prev.id} />
                       </div>
                     </li>
                   );
@@ -130,20 +141,20 @@ function App() {
                   .map((prev) => {
                     return (
                       <li key={prev.id}>
-                        <div className="todo">
-                          <span
-                            onClick={() => pinHandler(prev.id)}
-                            className="todo-pin"
-                          >
-                            <Pin className="svg-pin" />
-                          </span>
+                        <div
+                          className="todo"
+                          style={{backgroundColor: prev.color}}
+                        >
+                          <div className="todo-head">
+                            <span onClick={() => pinHandler(prev.id)}>
+                              <Pin className="todo-pin" />
+                            </span>
+                          </div>
                           <div className="todo-title">{prev.title}</div>
                           <div className="todo-description">
                             {prev.description}
                           </div>
-                          {/* <Pin id={prev.id} setTodo={setTodos} /> */}
-
-                          {/* <Pin id={prev.id} setTodo={setTodos} /> */}
+                          <Footer setTodos={setTodos} id={prev.id} />
                         </div>
                       </li>
                     );

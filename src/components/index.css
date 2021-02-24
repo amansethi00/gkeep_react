@@ -1,0 +1,39 @@
+.delete {
+  cursor: pointer;
+  display: inline;
+}
+.delete-svg {
+  height: 2rem;
+  width: 1.5rem;
+  cursor: pointer;
+  display: inline;
+}
+.footer {
+  position: absolute;
+  bottom: 0px;
+  width: 10rem;
+  display: flex;
+  justify-content: end;
+}
+
+.color {
+  height: 1rem;
+  width: 1rem;
+  border-radius: 1rem;
+  position: relative;
+  top: 0.5rem;
+  margin-left: 0.5rem;
+}
+.color-2 {
+  background-color: #a3e635;
+}
+.color-1 {
+  background-color: #fbbf24;
+}
+
+.color-3 {
+  background-color: #60a5fa;
+}
+.color-4 {
+  background-color: #f472b6;
+}
