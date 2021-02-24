@@ -37,3 +37,14 @@
 .color-4 {
   background-color: #f472b6;
 }
+.button-add {
+  border-radius: 0.5rem;
+  background-color: #3db46d;
+  padding: 0.3rem;
+  color: white;
+}
+.button-close {
+  position: relative;
+  left: 13rem;
+  top: 10px;
+}
