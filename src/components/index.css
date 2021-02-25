@@ -45,6 +45,99 @@
 }
 .button-close {
   position: relative;
-  left: 13rem;
+  left: 6rem;
   top: 10px;
+}
+
+button {
+  background: #8c54ff;
+  border: 0;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 15px;
+  transition: transform 100ms ease-out;
+}
+button:hover {
+  background: #682ede;
+  transform: scale(1.1);
+}
+.color {
+  transition: transform 100ms ease-out;
+}
+.color:hover {
+  transform: scale(1.1);
+}
+.edit-title {
+  font-size: x-large;
+  width: 100%;
+  outline: none;
+  border-width: 0px;
+  background: transparent;
+}
+.edit-description {
+  padding-top: 1rem;
+  border-width: 0px;
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+  background: transparent;
+  outline: none;
+}
+.edit-description:hover {
+  outline: none;
+}
+.button-edit {
+  font-size: 10px;
+  padding: 0px;
+  margin-left: 1rem;
+  margin-bottom: auto;
+}
+.div-addTag {
+  position: absolute;
+  height: auto;
+  width: 10rem;
+  left: 5rem;
+  top: 40px;
+  border: 1px solid black;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 0.2rem;
+  z-index: 2;
+  display: inline-flex;
+  flex-wrap: wrap;
+  word-break: break-all;
+}
+.input-tag {
+  width: 100%;
+  border-radius: 1rem;
+}
+.button-tag {
+  list-style: none;
+  display: inline;
+  padding: 0.3rem;
+  margin-left: 0.3rem;
+}
+.tag-selected {
+  height: 1rem;
+  border: 1px solid green;
+  padding: 0.2rem;
+  margin: 0.2rem;
+  word-wrap: break-word;
+}
+.green {
+  background-color: green;
+}
+.tag-view {
+  width: 100%;
+  display: inline-flex;
+  word-wrap: break-word;
+  flex-wrap: wrap;
+  margin: 0.1rem;
+}
+.footer-input {
+  position: relative;
+  bottom: 0px;
+  margin-top: 1rem;
 }

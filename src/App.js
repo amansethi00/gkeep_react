@@ -14,16 +14,21 @@ const todo = [
     pin: false,
     label: "",
     bgColor: "",
+    edit: false,
   },
 ];
 function App() {
   const [input, showInput] = useState(false);
-  const [userinput, setUserinput] = useState("");
+  const [userinput, setUserinput] = useState({edit: false, tag: []});
   const [todos, setTodos] = useState(todo);
   const [pinnedTodos, setPinnedTodos] = useState([]);
-
-  console.log(todos);
-  console.log(pinnedTodos);
+  const [tag, setTag] = useState({
+    state: false,
+    tags: ["todo", "add to class notes"],
+  });
+  // console.log(todos);
+  // console.log(pinnedTodos);
+  // console.log(tag);
   return (
     <div className="App">
       <div className="gkeep">
@@ -44,6 +49,8 @@ function App() {
               setTodos={setTodos}
               setPinnedTodos={setPinnedTodos}
               todos={todos}
+              setTag={setTag}
+              tag={tag}
             />
           )}
           <ul>
