@@ -15,11 +15,12 @@ const todo = [
     label: "",
     bgColor: "",
     edit: false,
+    tags: [],
   },
 ];
 function App() {
   const [input, showInput] = useState(false);
-  const [userinput, setUserinput] = useState({edit: false, tag: []});
+  const [userinput, setUserinput] = useState({edit: false, tags: []});
   const [todos, setTodos] = useState(todo);
   const [pinnedTodos, setPinnedTodos] = useState([]);
   const [tag, setTag] = useState({

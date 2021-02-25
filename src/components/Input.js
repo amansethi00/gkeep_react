@@ -29,20 +29,22 @@ export function Input({
   const addButtonHandler = () => {
     if (userinput.description && userinput.title) {
       setTodos([...todos, userinput]);
-      setUserinput({edit: false, tag: []});
+      setUserinput({edit: false, tags: []});
       showInput(!input);
+      setTag({...tag, state: false});
     } else {
       alert("Please enter title and/or description");
     }
   };
   const closeButtonHandler = () => {
     showInput(!input);
-    setUserinput({edit: false, tag: []});
+    setUserinput({edit: false, tags: []});
+    setTag({...tag, state: false});
   };
   const changeColor = (color) => {
     setUserinput({...userinput, color: color});
   };
-  const addTagButton = () => {
+  const toggleTagButton = () => {
     setTag({...tag, state: !tag.state});
   };
   const addToTag = (event) => {
@@ -51,8 +53,9 @@ export function Input({
     }
   };
   const addToTodo = (selectTag) => {
-    if (userinput.tag.filter((s) => s === selectTag).length === 0) {
-      setUserinput({...userinput, tag: [...userinput.tag, selectTag]});
+    console.log(selectTag);
+    if (userinput.tags.filter((s) => s === selectTag).length === 0) {
+      setUserinput({...userinput, tags: [...userinput.tags, selectTag]});
     }
   };
   console.log(userinput);
@@ -73,7 +76,7 @@ export function Input({
           ></textarea>
         </div>
         <div className="tag-view">
-          {userinput.tag.map((x) => {
+          {userinput.tags.map((x) => {
             return <span className="tag-selected">#{x}</span>;
           })}
         </div>
@@ -83,11 +86,11 @@ export function Input({
             Add Note
           </button>
           {tag.state === false ? (
-            <button className="button-tag" onClick={addTagButton}>
+            <button className="button-tag" onClick={toggleTagButton}>
               Add Tag
             </button>
           ) : (
-            <button className="button-tag" onClick={addTagButton}>
+            <button className="button-tag" onClick={toggleTagButton}>
               Close Tag
             </button>
           )}
@@ -104,25 +107,28 @@ export function Input({
           ) : (
             <></>
           )}
-          <span
-            onClick={() => changeColor("#fbbf24")}
-            className="color color-1 "
-          ></span>
-          <span
-            onClick={() => changeColor("#a3e635")}
-            className="color color-2"
-          ></span>
-          <span
-            onClick={() => changeColor("#60a5fa")}
-            className="color color-3"
-          ></span>
-          <span
-            onClick={() => changeColor("#f472b6")}
-            className="color color-4"
-          ></span>
-          <span onClick={closeButtonHandler} className="button-close">
-            <Delete />
-          </span>
+          <div className="color-palette">
+            {" "}
+            <span
+              onClick={() => changeColor("#fbbf24")}
+              className="color color-1 "
+            ></span>
+            <span
+              onClick={() => changeColor("#a3e635")}
+              className="color color-2"
+            ></span>
+            <span
+              onClick={() => changeColor("#60a5fa")}
+              className="color color-3"
+            ></span>
+            <span
+              onClick={() => changeColor("#f472b6")}
+              className="color color-4"
+            ></span>
+            <span onClick={closeButtonHandler} className="button-close">
+              <Delete />
+            </span>
+          </div>
         </div>
       </div>
     </div>

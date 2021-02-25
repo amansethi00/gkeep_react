@@ -40,6 +40,11 @@ export function Todo({prev, setPinnedTodos, todos, pinnedTodos, setTodos}) {
           <Pin className="pinned-pin" />
         </span>
       </div>
+      <div className="todo-tags-view">
+        {prev.tags.map((s) => (
+          <span className="todo-tags">#{s}</span>
+        ))}
+      </div>
 
       <Footer
         setTodos={
