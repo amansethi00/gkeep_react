@@ -4,38 +4,48 @@ import {useState} from "react";
 import {v4 as uuidv4} from "uuid";
 
 import {Input} from "./components/Input";
-import {Todo} from "./components/Todo";
+import {Sidebar} from "./components/Sidebar";
+import {Main} from "./components/Main";
 const todo = [
   {
     id: uuidv4(),
     title: "Title",
     description: "Description",
-    complete: false,
     pin: false,
-    label: "",
-    bgColor: "",
+
     edit: false,
-    tags: [],
+    tags: "",
+  },
+  {
+    id: uuidv4(),
+    title: "Pinned Title",
+    description: "Pinned Description",
+    pin: true,
+
+    edit: false,
+    tags: "",
   },
 ];
+
 function App() {
   const [input, showInput] = useState(false);
-  const [userinput, setUserinput] = useState({edit: false, tags: []});
-  const [todos, setTodos] = useState(todo);
-  const [pinnedTodos, setPinnedTodos] = useState([]);
-  const [tag, setTag] = useState({
-    state: false,
-    tags: ["todo", "add to class notes"],
+  const [userinput, setUserinput] = useState({
+    edit: false,
+    tags: [],
+    pin: false,
   });
+  const [todos, setTodos] = useState(todo);
+  const [tags, setTags] = useState([
+    {id: 1, name: "Todo", active: false},
+    {id: 2, name: "Class Notes", active: false},
+  ]);
   // console.log(todos);
   // console.log(pinnedTodos);
   // console.log(tag);
   return (
     <div className="App">
       <div className="gkeep">
-        <div className="sidebar">
-          <h1>Tags</h1>
-        </div>
+        <Sidebar setTags={setTags} tags={tags} />
         <div className="keep-container">
           {input === false ? (
             <div className="addNote" onClick={() => showInput(true)}>
@@ -48,53 +58,13 @@ function App() {
               userinput={userinput}
               setUserinput={setUserinput}
               setTodos={setTodos}
-              setPinnedTodos={setPinnedTodos}
               todos={todos}
-              setTag={setTag}
-              tag={tag}
+              tags={tags}
             />
           )}
-          <ul>
-            <div className="todo-view">
-              {/* Pinned Notes */}
-              {pinnedTodos.length > 0 ? <h2>Pinned Notes</h2> : <></>}
-              <div className="todo-pinned">
-                {pinnedTodos.map((prev) => {
-                  return (
-                    <li key={prev.id}>
-                      <Todo
-                        prev={prev}
-                        setPinnedTodos={setPinnedTodos}
-                        todos={todos}
-                        pinnedTodos={pinnedTodos}
-                        setTodos={setTodos}
-                      />
-                    </li>
-                  );
-                })}
-              </div>
-              <h2>Others</h2>
-              <div className="todo-others">
-                {/* Other notes */}
-                {todos.map((prev) => {
-                  return (
-                    <li key={prev.id}>
-                      <Todo
-                        prev={prev}
-                        setPinnedTodos={setPinnedTodos}
-                        todos={todos}
-                        pinnedTodos={pinnedTodos}
-                        setTodos={setTodos}
-                      />
-                    </li>
-                  );
-                })}
-              </div>
-            </div>
-          </ul>
+          <Main setTodos={setTodos} todos={todos} tags={tags} />
         </div>
       </div>
-      <div className="pin"></div>
     </div>
   );
 }

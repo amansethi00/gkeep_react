@@ -45,7 +45,7 @@
 }
 .button-close {
   position: relative;
-  left: 6rem;
+  left: 11rem;
   top: 10px;
 }
 
@@ -163,4 +163,28 @@ button:hover {
 }
 .todo-tags-view {
   margin-top: 1rem;
+}
+.button-input-pin {
+  border-radius: 0.5rem;
+  background-color: orange;
+  padding: 0.3rem;
+  color: white;
+}
+.input-tags {
+  margin-left: 0.5rem;
+  border-radius: 0.5rem;
+}
+.sidebar {
+  padding: 1rem;
+}
+
+/* Inline #6 | http://localhost:3000/ */
+
+.footer-input {
+  padding-left: 1.5rem;
+}
+
+.button-close {
+  /* left: 11rem; */
+  left: -13rem;
 }

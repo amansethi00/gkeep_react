@@ -1,15 +1,16 @@
 import {v4 as uuidv4} from "uuid";
 import {ReactComponent as Delete} from "../svg/delete-24px.svg";
+
 export function Input({
   input,
   showInput,
   userinput,
   setUserinput,
   setTodos,
-  setPinnedTodos,
+
   todos,
-  setTag,
-  tag,
+  setTags,
+  tags,
 }) {
   const inputTitleHandler = (event) => {
     setUserinput({
@@ -28,38 +29,26 @@ export function Input({
   };
   const addButtonHandler = () => {
     if (userinput.description && userinput.title) {
-      setTodos([...todos, userinput]);
-      setUserinput({edit: false, tags: []});
+      setTodos([userinput, ...todos]);
+      setUserinput({edit: false, pin: false});
       showInput(!input);
-      setTag({...tag, state: false});
     } else {
       alert("Please enter title and/or description");
     }
   };
   const closeButtonHandler = () => {
     showInput(!input);
-    setUserinput({edit: false, tags: []});
-    setTag({...tag, state: false});
+    setUserinput({edit: false, pin: false});
   };
   const changeColor = (color) => {
     setUserinput({...userinput, color: color});
   };
-  const toggleTagButton = () => {
-    setTag({...tag, state: !tag.state});
+
+  const pinbuttonhandler = () => {
+    setUserinput({...userinput, pin: !userinput.pin});
   };
-  const addToTag = (event) => {
-    if (event.key === "Enter" && event.target.value !== "") {
-      setTag({...tag, tags: [...tag.tags, event.target.value]});
-    }
-  };
-  const addToTodo = (selectTag) => {
-    console.log(selectTag);
-    if (userinput.tags.filter((s) => s === selectTag).length === 0) {
-      setUserinput({...userinput, tags: [...userinput.tags, selectTag]});
-    }
-  };
-  console.log(userinput);
   //   console.log(tag);
+
   return (
     <div>
       <div className="input-div" style={{backgroundColor: userinput.color}}>
@@ -75,40 +64,16 @@ export function Input({
             onChange={inputDescriptionHandler}
           ></textarea>
         </div>
-        <div className="tag-view">
+        {/* <div className="tag-view">
           {userinput.tags.map((x) => {
             return <span className="tag-selected">#{x}</span>;
           })}
-        </div>
+        </div> */}
         <div className="footer-input">
-          {" "}
           <button onClick={addButtonHandler} className="button-add">
             Add Note
           </button>
-          {tag.state === false ? (
-            <button className="button-tag" onClick={toggleTagButton}>
-              Add Tag
-            </button>
-          ) : (
-            <button className="button-tag" onClick={toggleTagButton}>
-              Close Tag
-            </button>
-          )}
-          {tag.state ? (
-            <div className="div-addTag">
-              <label>Add label</label>
-              <input onKeyDown={addToTag} className="input-tag"></input>
-              {tag.tags.map((s) => (
-                <button className="button-tag" onClick={() => addToTodo(s)}>
-                  #{s}
-                </button>
-              ))}
-            </div>
-          ) : (
-            <></>
-          )}
           <div className="color-palette">
-            {" "}
             <span
               onClick={() => changeColor("#fbbf24")}
               className="color color-1 "
@@ -129,6 +94,24 @@ export function Input({
               <Delete />
             </span>
           </div>
+          <button className="button-input-pin" onClick={pinbuttonhandler}>
+            {userinput.pin === false ? "Pin" : "Pinned"}
+          </button>
+          <select
+            className="input-tags"
+            onChange={(event) =>
+              setUserinput({...userinput, tags: event.target.value})
+            }
+          >
+            <option>Add tag</option>
+            {tags.map((x) => {
+              return (
+                <option value={x.name} key={x.name}>
+                  {x.name}
+                </option>
+              );
+            })}
+          </select>
         </div>
       </div>
     </div>

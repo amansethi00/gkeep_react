@@ -1,60 +1,40 @@
 import {Footer} from "./Footer";
 import {ReactComponent as Pin} from "../svg/push-pin.svg";
 
-export function Todo({prev, setPinnedTodos, todos, pinnedTodos, setTodos}) {
+export function Todo({prev, todos, setTodos}) {
   const pinToggler = (id) => {
-    if (todos.filter((e) => e.id === id).length > 0) {
-      setPinnedTodos([...todos.filter((e) => e.id === id), ...pinnedTodos]);
-      setTodos((prev) => prev.filter((e) => e.id !== id));
+    let toToggle = todos.filter((x) => x.id === id);
+    let others = todos.filter((x) => x.id !== id);
+    if (toToggle[0].pin === false) {
+      toToggle[0].pin = true;
+
+      setTodos([...toToggle, ...others]);
     } else {
-      setTodos([...pinnedTodos.filter((e) => e.id === id), ...todos]);
-      setPinnedTodos((prev) => prev.filter((e) => e.id !== id));
+      toToggle[0].pin = false;
+      setTodos([...toToggle, ...others]);
     }
   };
-
   return (
     <div className="todo" style={{backgroundColor: prev.color}}>
       <div className="todo-head">
-        {prev.edit === false ? (
-          <>
-            <div className="todo-title" id="title">
-              {prev.title}
-            </div>
-            <div className="todo-description">{prev.description}</div>
-          </>
-        ) : (
-          <>
-            <input
-              defaultValue={prev.title}
-              className="edit-title"
-              id="e-title"
-            ></input>
-            <textarea
-              defaultValue={prev.description}
-              className="edit-description"
-            ></textarea>
-          </>
-        )}
+        <div className="todo-title" id="title">
+          {prev.title}
+        </div>
+        <div className="todo-description">{prev.description}</div>
 
         <span onClick={() => pinToggler(prev.id)}>
           <Pin className="pinned-pin" />
         </span>
       </div>
-      <div className="todo-tags-view">
-        {prev.tags.map((s) => (
-          <span className="todo-tags">#{s}</span>
-        ))}
-      </div>
-
-      <Footer
-        setTodos={
-          todos.filter((e) => e.id === prev.id).length > 0
-            ? setTodos
-            : setPinnedTodos
-        }
-        id={prev.id}
-        edit={prev.edit}
-      />
+      {prev.tags?.length > 0 && (
+        <div className="todo-tags-view">
+          <span className="todo-tags">#{prev.tags}</span>
+        </div>
+      )}
+      {/* <div className="todo-tags-view">
+        <span className="todo-tags">#{prev.tag}</span>
+      </div> */}
+      <Footer setTodos={setTodos} id={prev.id} edit={prev.edit} />
     </div>
   );
 }
