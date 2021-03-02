@@ -32,7 +32,7 @@ export function Input({
   const addButtonHandler = () => {
     if (userinput.description && userinput.title) {
       setTodos([userinput, ...todos]);
-      setUserinput({edit: false, pin: false});
+      setUserinput({editTitle: false, editDescription: false, pin: false});
       showInput(!input);
     } else {
       alert("Please enter title and/or description");
@@ -40,7 +40,7 @@ export function Input({
   };
   const closeButtonHandler = () => {
     showInput(!input);
-    setUserinput({edit: false, pin: false});
+    setUserinput({editTitle: false, editDescription: false, spin: false});
   };
   const changeColor = (color) => {
     setUserinput({...userinput, color: color});
@@ -49,7 +49,6 @@ export function Input({
   const pinbuttonhandler = () => {
     setUserinput({...userinput, pin: !userinput.pin});
   };
-  //   console.log(tag);
 
   return (
     <div>
@@ -66,11 +65,6 @@ export function Input({
             onChange={inputDescriptionHandler}
           ></textarea>
         </div>
-        {/* <div className="tag-view">
-          {userinput.tags.map((x) => {
-            return <span className="tag-selected">#{x}</span>;
-          })}
-        </div> */}
         <div className="footer-input">
           <button onClick={addButtonHandler} className="button-add">
             Add Note

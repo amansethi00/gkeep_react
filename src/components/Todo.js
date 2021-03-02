@@ -73,8 +73,8 @@ export function Todo({prev, todos, setTodos}) {
         {prev.editDescription ? (
           <div className="todo-description">
             <textarea
-              className="todo-description"
               onKeyDown={editeEscriptionHandler}
+              className="edit-description"
               defaultValue={prev.description}
             ></textarea>
           </div>
@@ -86,7 +86,6 @@ export function Todo({prev, todos, setTodos}) {
             {prev.description}
           </div>
         )}
-
         <span onClick={() => pinToggler(prev.id)}>
           <Pin className="pinned-pin" />
         </span>
@@ -96,9 +95,6 @@ export function Todo({prev, todos, setTodos}) {
           <span className="todo-tags">#{prev.tags}</span>
         </div>
       )}
-      {/* <div className="todo-tags-view">
-        <span className="todo-tags">#{prev.tag}</span>
-      </div> */}
       <Footer setTodos={setTodos} id={prev.id} edit={prev.edit} />
     </div>
   );

@@ -29,7 +29,13 @@ export function Sidebar({tags, setTags}) {
     <div className="sidebar">
       <h1>Tags</h1>
       {tags.map((x) => (
-        <li onClick={() => toggleActiveTodo(x.id)}>{x.name}</li>
+        <li
+          key={x.id}
+          style={{backgroundColor: x.active ? "grey" : ""}}
+          onClick={() => toggleActiveTodo(x.id)}
+        >
+          {x.name}{" "}
+        </li>
       ))}
       <div>
         <h3>Add Tag</h3>

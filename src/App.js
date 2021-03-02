@@ -26,6 +26,24 @@ const todo = [
     editDescription: false,
     tags: "",
   },
+  {
+    id: uuidv4(),
+    title: "Class Notes Title",
+    description: "Class Notes Description",
+    pin: false,
+    editTitle: false,
+    editDescription: false,
+    tags: "Class Notes",
+  },
+  {
+    id: uuidv4(),
+    title: "Todo Title",
+    description: "Todo Description",
+    pin: false,
+    editTitle: false,
+    editDescription: false,
+    tags: "Todo",
+  },
 ];
 
 function App() {
