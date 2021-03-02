@@ -13,7 +13,8 @@ const todo = [
     description: "Description",
     pin: false,
 
-    edit: false,
+    editTitle: false,
+    editDescription: false,
     tags: "",
   },
   {
@@ -21,8 +22,8 @@ const todo = [
     title: "Pinned Title",
     description: "Pinned Description",
     pin: true,
-
-    edit: false,
+    editTitle: false,
+    editDescription: false,
     tags: "",
   },
 ];
@@ -30,7 +31,8 @@ const todo = [
 function App() {
   const [input, showInput] = useState(false);
   const [userinput, setUserinput] = useState({
-    edit: false,
+    editTitle: false,
+    editDescription: false,
     tags: [],
     pin: false,
   });
@@ -39,9 +41,6 @@ function App() {
     {id: 1, name: "Todo", active: false},
     {id: 2, name: "Class Notes", active: false},
   ]);
-  // console.log(todos);
-  // console.log(pinnedTodos);
-  // console.log(tag);
   return (
     <div className="App">
       <div className="gkeep">

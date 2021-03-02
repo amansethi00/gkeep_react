@@ -1,6 +1,5 @@
 import {Footer} from "./Footer";
 import {ReactComponent as Pin} from "../svg/push-pin.svg";
-
 export function Todo({prev, todos, setTodos}) {
   const pinToggler = (id) => {
     let toToggle = todos.filter((x) => x.id === id);
@@ -14,13 +13,79 @@ export function Todo({prev, todos, setTodos}) {
       setTodos([...toToggle, ...others]);
     }
   };
+  const toggleEditTitle = (id) => {
+    setTodos((todos) =>
+      todos.map((item) =>
+        item.id === id ? {...item, editTitle: !item.editTitle} : item
+      )
+    );
+  };
+  const toggleEditDescription = (id) => {
+    setTodos((todos) =>
+      todos.map((item) =>
+        item.id === id
+          ? {...item, editDescription: !item.editDescription}
+          : item
+      )
+    );
+  };
+
+  const editTitleHandler = (event) => {
+    if (event.key === "Enter") {
+      toggleEditTitle(prev.id);
+    } else {
+      setTodos((todos) =>
+        todos.map((item) =>
+          item.id === prev.id ? {...item, title: event.target.value} : item
+        )
+      );
+    }
+  };
+  const editeEscriptionHandler = (event) => {
+    if (event.key === "Enter") {
+      toggleEditDescription(prev.id);
+    } else {
+      setTodos((todos) =>
+        todos.map((item) =>
+          item.id === prev.id
+            ? {...item, description: event.target.value}
+            : item
+        )
+      );
+    }
+  };
+
   return (
     <div className="todo" style={{backgroundColor: prev.color}}>
       <div className="todo-head">
-        <div className="todo-title" id="title">
-          {prev.title}
-        </div>
-        <div className="todo-description">{prev.description}</div>
+        {prev.editTitle ? (
+          <div className="todo-title">
+            <input
+              onKeyDown={editTitleHandler}
+              defaultValue={prev.title}
+            ></input>
+          </div>
+        ) : (
+          <div className="todo-title" onClick={() => toggleEditTitle(prev.id)}>
+            {prev.title}
+          </div>
+        )}
+        {prev.editDescription ? (
+          <div className="todo-description">
+            <textarea
+              className="todo-description"
+              onKeyDown={editeEscriptionHandler}
+              defaultValue={prev.description}
+            ></textarea>
+          </div>
+        ) : (
+          <div
+            className="todo-description"
+            onClick={() => toggleEditDescription(prev.id)}
+          >
+            {prev.description}
+          </div>
+        )}
 
         <span onClick={() => pinToggler(prev.id)}>
           <Pin className="pinned-pin" />

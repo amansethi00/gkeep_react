@@ -16,7 +16,7 @@ export function Input({
     setUserinput({
       ...userinput,
       title: event.target.value,
-      id: uuidv4(),
+      // id: uuidv4(),
     });
   };
   const inputDescriptionHandler = (event) => {
@@ -25,6 +25,8 @@ export function Input({
       description: event.target.value,
       id: uuidv4(),
       pin: false,
+      editTitle: false,
+      editDescription: false,
     });
   };
   const addButtonHandler = () => {
