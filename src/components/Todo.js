@@ -31,27 +31,23 @@ export function Todo({prev, todos, setTodos}) {
   };
 
   const editTitleHandler = (event) => {
+    setTodos((todos) =>
+      todos.map((item) =>
+        item.id === prev.id ? {...item, title: event.target.value} : item
+      )
+    );
     if (event.key === "Enter") {
       toggleEditTitle(prev.id);
-    } else {
-      setTodos((todos) =>
-        todos.map((item) =>
-          item.id === prev.id ? {...item, title: event.target.value} : item
-        )
-      );
     }
   };
   const editeEscriptionHandler = (event) => {
+    setTodos((todos) =>
+      todos.map((item) =>
+        item.id === prev.id ? {...item, description: event.target.value} : item
+      )
+    );
     if (event.key === "Enter") {
       toggleEditDescription(prev.id);
-    } else {
-      setTodos((todos) =>
-        todos.map((item) =>
-          item.id === prev.id
-            ? {...item, description: event.target.value}
-            : item
-        )
-      );
     }
   };
 

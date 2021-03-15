@@ -1,6 +1,5 @@
 import {v4 as uuidv4} from "uuid";
 import {ReactComponent as Delete} from "../svg/delete-24px.svg";
-
 export function Input({
   input,
   showInput,
