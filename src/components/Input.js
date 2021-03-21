@@ -1,59 +1,33 @@
-import {v4 as uuidv4} from "uuid";
 import {ReactComponent as Delete} from "../svg/delete-24px.svg";
-export function Input({
-  input,
-  showInput,
-  userinput,
-  setUserinput,
-  setTodos,
-
-  todos,
-  setTags,
-  tags,
-}) {
-  const inputTitleHandler = (event) => {
-    setUserinput({
-      ...userinput,
-      title: event.target.value,
-      // id: uuidv4(),
-    });
-  };
-  const inputDescriptionHandler = (event) => {
-    setUserinput({
-      ...userinput,
-      description: event.target.value,
-      id: uuidv4(),
-      pin: false,
-      editTitle: false,
-      editDescription: false,
-    });
-  };
-  const addButtonHandler = () => {
-    if (userinput.description && userinput.title) {
-      setTodos([userinput, ...todos]);
-      setUserinput({editTitle: false, editDescription: false, pin: false});
-      showInput(!input);
-    } else {
-      alert("Please enter title and/or description");
-    }
-  };
+import {useNote} from "../note-context";
+import {useState} from "react";
+export function Input({showInput}) {
+  const {value, dispatch} = useNote();
+  const [newTodo, setNewTodo] = useState({
+    title: "",
+    description: "",
+    pin: false,
+    color: "white",
+    tag: null,
+  });
   const closeButtonHandler = () => {
-    showInput(!input);
-    setUserinput({editTitle: false, editDescription: false, spin: false});
+    showInput(false);
+    setNewTodo({
+      title: "",
+      description: "",
+      pin: false,
+      color: "white",
+      tag: null,
+    });
   };
-  const changeColor = (color) => {
-    setUserinput({...userinput, color: color});
-  };
-
-  const pinbuttonhandler = () => {
-    setUserinput({...userinput, pin: !userinput.pin});
-  };
-
+  console.log(newTodo);
   return (
     <div>
-      <div className="input-div" style={{backgroundColor: userinput.color}}>
+      <div className="input-div" style={{backgroundColor: newTodo.color}}>
         <input
-          onChange={inputTitleHandler}
+          onChange={(event) =>
+            setNewTodo((prev) => ({...prev, title: event.target.value}))
+          }
           placeholder="Title"
           className="input-title"
         ></input>
@@ -61,45 +35,61 @@ export function Input({
           <textarea
             placeholder="add a note..."
             className="input-description"
-            onChange={inputDescriptionHandler}
+            onChange={(event) =>
+              setNewTodo((prev) => ({...prev, description: event.target.value}))
+            }
           ></textarea>
         </div>
         <div className="footer-input">
-          <button onClick={addButtonHandler} className="button-add">
+          <button
+            onClick={dispatch({type: "SET_TODO", newTodo})}
+            className="button-add"
+          >
             Add Note
           </button>
           <div className="color-palette">
             <span
-              onClick={() => changeColor("#fbbf24")}
+              onClick={() =>
+                setNewTodo((prev) => ({...prev, color: "#fbbf24"}))
+              }
               className="color color-1 "
             ></span>
             <span
-              onClick={() => changeColor("#a3e635")}
+              onClick={() =>
+                setNewTodo((prev) => ({...prev, color: "#a3e635"}))
+              }
               className="color color-2"
             ></span>
             <span
-              onClick={() => changeColor("#60a5fa")}
+              onClick={() =>
+                setNewTodo((prev) => ({...prev, color: "#60a5fa"}))
+              }
               className="color color-3"
             ></span>
             <span
-              onClick={() => changeColor("#f472b6")}
+              onClick={() =>
+                setNewTodo((prev) => ({...prev, color: "#f472b6"}))
+              }
               className="color color-4"
             ></span>
             <span onClick={closeButtonHandler} className="button-close">
               <Delete />
             </span>
           </div>
-          <button className="button-input-pin" onClick={pinbuttonhandler}>
-            {userinput.pin === false ? "Pin" : "Pinned"}
+          <button
+            className="button-input-pin"
+            onClick={() => setNewTodo((prev) => ({...prev, pin: !prev.pin}))}
+          >
+            {newTodo.pin === false ? "Pin" : "Pinned"}
           </button>
           <select
             className="input-tags"
             onChange={(event) =>
-              setUserinput({...userinput, tags: event.target.value})
+              setNewTodo((prev) => ({...prev, tag: event.target.value}))
             }
           >
             <option>Add tag</option>
-            {tags.map((x) => {
+            {value.tags.map((x) => {
               return (
                 <option value={x.name} key={x.name}>
                   {x.name}
